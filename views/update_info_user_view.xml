@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <record id="employee_update_info_tree" model="ir.ui.view">
+    <field name="name">hr.employee.change.user.tree</field>
+    <field name="model">hr.user.info.update</field>
+    <field name="arch" type="xml">
+      <tree>
+     
+      
+        <field name="name_id" />
+       </tree> 
+        
+        </field>
+  </record>
+   <record id="employee_update_info_form" model="ir.ui.view">
+    <field name="name">hr.employee.change.user.form</field>
+    <field name="model">hr.user.info.update</field>
+    <field name="arch" type="xml">
+      <form>
+      <header>
+      <button name="submit_action_send_email" type="object" string="submit changes" class="btn-primary"/>
+
+      </header>
+      <group>
+        <field name="name_id" />
+        <field name="temp_phone" />
+        <field name="temp_employee_country_id"/>
+        <field name="temp_work_phone"/>
+        <field name="temp_private_email"/>
+        <field name="temp_marital"/>
+        <field name="temp_emergency_contact"/>
+        <field name="temp_emergency_phone"/>
+        <field name="temp_identification_id"/>
+        <field name="temp_passport_id"/>
+        <field name="temp_gender"/>
+        <field name="temp_birthday"/>
+        <field name="temp_place_of_birth"/>
+
+      </group>
+       </form>
+        
+    </field>
+  </record>
+
+  <record model="ir.actions.act_window" id="action_hr_employee_user_change">
+    <field name="name">Employee Information Update User</field>
+    <field name="res_model">hr.user.info.update</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <menuitem id="employee_update_user" name="Update Information"/>
+  <menuitem id="employee_update_access_user" name="Employee Information Update" action="update_employee_information.action_hr_employee_user_change" parent="update_employee_information.employee_update" sequence="2" groups="update_employee_information.group_user_employee"/>
+</odoo>
+      

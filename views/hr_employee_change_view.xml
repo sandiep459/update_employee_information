@@ -7,10 +7,20 @@
       <tree>
      
       
-      <field name="name_id" />
-      <field name="temp_phone" />
-      <field name="temp_employee_country_id"/>
-      <field name="is_admin_employee" invisible="1"/>     
+        <field name="name_id" />
+        <!-- <field name="temp_phone" />
+        <field name="temp_employee_country_id"/>
+        <field name="is_admin_employee" invisible="1"/>
+        <field name="temp_work_phone"/>
+        <field name="temp_private_email"/>
+        <field name="temp_marital"/>
+        <field name="temp_emergency_contact"/>
+        <field name="temp_emergency_phone"/>
+        <field name="temp_identification_id"/>
+        <field name="temp_passport_id"/>
+        <field name="temp_gender"/>
+        <field name="temp_birthday"/>
+        <field name="temp_place_of_birthday"/>  -->
        </tree>
         
     </field>
@@ -20,20 +30,28 @@
     <field name="model">hr.employee.change</field>
     <field name="arch" type="xml">
       <form>
-      <header>
-        <button name="validate_change_in_information" type="object" string="validate" class="btn-primary"  attrs="{'invisible': [('is_admin_employee', '!=', True)]}"/>
-        <button name="reject_change_in_information" type="object" string="reject" class="btn-primary"  attrs="{'invisible': [('is_admin_employee', '!=', True)]}"/>
+        <header>
+          <button name="validate_change_in_information" type="object" string="validate" class="btn-primary" />
+          <button name="reject_change_in_information" type="object" string="reject" class="btn-primary" />
 
-        <button name="submit_action_send_email" type="object" string="submit changes" class="btn-primary" attrs="{'invisible': [('is_admin_employee', '=', True)]}"/>
-      </header>
-      <group>
-        <field name="name_id" />
-        
-        <field name="temp_phone" />
-        <field name="temp_employee_country_id"/>
-        <field name="is_admin_employee" invisible="1"/>
+        </header>
+        <group>
+          <field name="name_id" />
+          <field name="temp_phone" />
+          <field name="temp_employee_country_id"/>
+          <!-- <field name="is_admin_employee" invisible="1"/> -->
+          <field name="temp_work_phone"/>
+          <field name="temp_private_email"/>
+          <field name="temp_marital"/>
+          <field name="temp_emergency_contact"/>
+          <field name="temp_emergency_phone"/>
+          <field name="temp_identification_id"/>
+          <field name="temp_passport_id"/>
+          <field name="temp_gender"/>
+          <field name="temp_birthday"/>
+          <field name="temp_place_of_birth"/>
 
-      </group>
+        </group>
        </form>
         
     </field>
@@ -46,5 +64,5 @@
   </record>
 
   <menuitem id="employee_update" name="Update Information"/>
-  <menuitem id="employee_update_access" name="Employee Information Update" action="update_employee_information.action_hr_employee_change" parent="update_employee_information.employee_update" sequence="2" groups="update_employee_information.group_administrator_employee"/>
+  <menuitem id="employee_update_access" name="Employee Information Update" action="update_employee_information.action_hr_employee_change" parent="update_employee_information.employee_update" sequence="2" />
 </odoo>
