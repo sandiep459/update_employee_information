@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<record id="inherit_employee_form_view" model="ir.ui.view">
+        <field name="name">view.hr.employee.view.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+         <xpath expr="//field[@name='department_id']" position="after">
+             <field name="is_admin_employee" />
+        </xpath>
+            <xpath expr="//header/button" position="inside">
+              <button name="update_employee" type="object" string="Update Infromation"  attrs="{'invisible': [('is_admin_employee', '=', True)]}"/>
+            </xpath>
+           
+        </field>
+    </record>
+</odoo>

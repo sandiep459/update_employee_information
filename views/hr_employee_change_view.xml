@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <record id="employee_update_tree" model="ir.ui.view">
+    <field name="name">hr.employee.change.tree</field>
+    <field name="model">hr.employee.change</field>
+    <field name="arch" type="xml">
+      <tree>
+     
+      
+      <field name="name_id" />
+      <field name="temp_phone" />
+      <field name="temp_employee_country_id"/>
+      <field name="is_admin_employee" invisible="1"/>     
+       </tree>
+        
+    </field>
+  </record>
+   <record id="employee_update_form" model="ir.ui.view">
+    <field name="name">hr.employee.change.form</field>
+    <field name="model">hr.employee.change</field>
+    <field name="arch" type="xml">
+      <form>
+      <header>
+        <button name="validate_change_in_information" type="object" string="validate" class="btn-primary"  attrs="{'invisible': [('is_admin_employee', '!=', True)]}"/>
+        <button name="reject_change_in_information" type="object" string="reject" class="btn-primary"  attrs="{'invisible': [('is_admin_employee', '!=', True)]}"/>
+
+        <button name="submit_action_send_email" type="object" string="submit changes" class="btn-primary" attrs="{'invisible': [('is_admin_employee', '=', True)]}"/>
+      </header>
+      <group>
+        <field name="name_id" />
+        
+        <field name="temp_phone" />
+        <field name="temp_employee_country_id"/>
+        <field name="is_admin_employee" invisible="1"/>
+
+      </group>
+       </form>
+        
+    </field>
+  </record>
+
+  <record model="ir.actions.act_window" id="action_hr_employee_change">
+    <field name="name">Employee Information Update</field>
+    <field name="res_model">hr.employee.change</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <menuitem id="employee_update" name="Update Information"/>
+  <menuitem id="employee_update_access" name="Employee Information Update" action="update_employee_information.action_hr_employee_change" parent="update_employee_information.employee_update" sequence="2" groups="update_employee_information.group_administrator_employee"/>
+</odoo>

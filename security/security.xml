@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ <record model="ir.module.category" id="employee_info_category">
+            <field name="name">Test Employee</field>
+</record>
+<record model="res.groups" id="group_user_employee">
+            <field name="name">user </field>
+           <field name="category_id" ref="employee_info_category"/>
+
+        </record>
+        <record model="res.groups" id="group_administrator_employee">
+            <field name="name">Administrator </field>
+           <field name="category_id" ref="employee_info_category"/>
+
+        </record>
+
+ <record model="ir.rule" id="employee_info_update_rule">
+    <field name="name">Employee Information Security Rule</field>
+    <field name="model_id" ref="update_employee_information.model_hr_employee_change"/>
+    <field name="domain_force">[('name_id.user_id', '=', user.id)]</field>
+    <field name="groups" eval="[(4, ref('update_employee_information.group_user_employee'))]"/>
+    <field name="perm_read" eval="False"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+</record>
+</odoo> 

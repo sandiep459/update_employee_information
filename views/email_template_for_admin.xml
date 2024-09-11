@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="mail_template_for_notifying_admin" model="mail.template">
+        <field name="name">Email Template</field>
+        <!-- <field name="email_from">${object.user_id.email}</field> -->
+        <!-- <field name="email_to">${(object.name_id.email)}</field> -->
+        <field name="subject">please validate the employee information update</field>
+        <field name="model_id" ref="update_employee_information.model_hr_employee_change"/>
+        <field name="body_html">
+           please validate the employee information update of ${object.user_id}
+        </field>
+    </record>
+</odoo>
