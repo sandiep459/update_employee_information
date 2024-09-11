@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_hr_employee_change,hr_employee_change,update_employee_information.model_hr_employee_change,,1,1,1,1
+access_hr_user_info_update,hr_user_info_update,update_employee_information.model_hr_user_info_update,,1,1,1,1
