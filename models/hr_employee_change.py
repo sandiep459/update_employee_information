@@ -18,6 +18,7 @@ class HrEmployeeChange(models.Model):
     temp_marital=fields.Selection([
         ('single', 'Single'),
         ('married', 'Married'),
+        ('divorced','Divorced')
     ], string='Marital Status')
     temp_emergency_contact=fields.Char(string="Emergency Contact Name")
     temp_emergency_phone=fields.Char(string="Emergecny Phone")
@@ -56,16 +57,16 @@ class HrEmployeeChange(models.Model):
             self.action_send_email()
             employee_update.write({
                 
-                'default_phone':self.temp_phone,
-                'default_country_id':self.temp_employee_country_id.id,
-                'default_work_phone':self.temp_work_phone,
-                'default_private_email':self.temp_private_email,
-                'default_marital':self.temp_marital,
-                'default_emergency_contact':self.temp_emergency_contact,
-                'default_emergency_phone':self.temp_emergency_phone,
-                'default_identification_id':self.temp_identification_id,
-                'default_passport_id':self.temp_passport_id,
-                'default_gender':self.temp_gender,
+                # 'default_phone':self.temp_phone,
+                'country_id':self.temp_employee_country_id.id,
+                'work_phone':self.temp_work_phone,
+                'private_email':self.temp_private_email,
+                'marital':self.temp_marital,
+                'emergency_contact':self.temp_emergency_contact,
+                'emergency_phone':self.temp_emergency_phone,
+                'identification_id':self.temp_identification_id,
+                'passport_id':self.temp_passport_id,
+                'gender':self.temp_gender,
                 'birthday':self.temp_birthday,
              })
             # employee_update.write({

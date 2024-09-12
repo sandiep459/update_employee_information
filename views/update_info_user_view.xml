@@ -18,7 +18,9 @@
     <field name="arch" type="xml">
       <form>
       <header>
-      <button name="submit_action_send_email" type="object" string="submit changes" class="btn-primary"/>
+      <button name="submit_action_send_email" type="object" string="submit changes" class="btn-primary" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+     
+      <field name="state" widget="statusbar" statusbar_visible="draft,submitted"/>
 
       </header>
       <group>
