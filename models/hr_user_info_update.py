@@ -3,12 +3,12 @@ from odoo.exceptions import UserError, ValidationError
 
 class HrUserInfoChnage(models.Model):
     _name="hr.user.info.update"
-    name_id = fields.Many2one('res.users', default=lambda self: self.env['res.users'].search([('user_id', '=', self.env.user.id)], limit=1).user_id,create=False,edit=True)
+    name_id = fields.Many2one('res.users', default=lambda self: self.env['res.users'].search([('user_id', '=', self.env.user.id)], limit=1).user_id.id,create=False,edit=True)
     changed_name=fields.Char()
     # temp_private_street=fields.Char('hr.employee',related="name_id.address_home_id", readonly=False,store=True)
     temp_phone=fields.Char()
     # is_admin_employee = fields.Boolean(compute='_compute_is_admin_employee')
-    temp_employee_country_id=fields.Many2one('res.country', default=lambda self: self.env['res.users'].search([('user_id', '=', self.env.user.id)], limit=1).country_id.id)
+    temp_employee_country_id=fields.Many2one('res.country', default=lambda self: self.env['res.users'].search([('user_id', '=', self.env.user.id)], limit=1).user_id.country_id.id)
     temp_work_phone=fields.Char(string ="Work Phone")
     temp_private_email=fields.Char(string="Email")
     temp_marital=fields.Selection([
