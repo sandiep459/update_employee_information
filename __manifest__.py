@@ -7,13 +7,13 @@
     ''',
     "author": "Sandeep Shrestha",
     'data': [
-        'security/security.xml',
         'security/ir.model.access.csv',
+        'security/security.xml',
         'views/employee_mail_template.xml',
         'views/email_template_for_admin.xml',
         'views/hr_employee_change_view.xml',
         'views/update_info_user_view.xml',
-        'views/inherit_hr_employee_view_form.xml',
+        # 'views/inherit_hr_employee_view_form.xml',
         'views/update_rejection_email.xml',
        
     ],

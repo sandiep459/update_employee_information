@@ -8,19 +8,20 @@
      
       
         <field name="name_id" />
-        <!-- <field name="temp_phone" />
-        <field name="temp_employee_country_id"/>
-        <field name="is_admin_employee" invisible="1"/>
-        <field name="temp_work_phone"/>
-        <field name="temp_private_email"/>
-        <field name="temp_marital"/>
-        <field name="temp_emergency_contact"/>
-        <field name="temp_emergency_phone"/>
-        <field name="temp_identification_id"/>
-        <field name="temp_passport_id"/>
-        <field name="temp_gender"/>
-        <field name="temp_birthday"/>
-        <field name="temp_place_of_birthday"/>  -->
+         <field name="changed_name"/>
+          <field name="temp_phone" />
+          <field name="temp_employee_country_id"/>
+          <!-- <field name="is_admin_employee" invisible="1"/> -->
+          <field name="temp_work_phone"/>
+          <field name="temp_private_email"/>
+          <field name="temp_marital"/>
+          <field name="temp_emergency_contact"/>
+          <field name="temp_emergency_phone"/>
+          <field name="temp_identification_id"/>
+          <field name="temp_passport_id"/>
+          <field name="temp_gender"/>
+          <field name="temp_birthday"/>
+          <field name="temp_place_of_birth"/>
        </tree>
         
     </field>
@@ -37,6 +38,7 @@
         </header>
         <group>
           <field name="name_id" />
+          <field name="changed_name"/>
           <field name="temp_phone" />
           <field name="temp_employee_country_id"/>
           <!-- <field name="is_admin_employee" invisible="1"/> -->
@@ -58,11 +60,11 @@
   </record>
 
   <record model="ir.actions.act_window" id="action_hr_employee_change">
-    <field name="name">Employee Information Update</field>
+    <field name="name">Employee Information Validate</field>
     <field name="res_model">hr.employee.change</field>
     <field name="view_mode">tree,form</field>
   </record>
 
-  <menuitem id="employee_update" name="Update Information"/>
-  <menuitem id="employee_update_access" name="Employee Information Update" action="update_employee_information.action_hr_employee_change" parent="update_employee_information.employee_update" sequence="2" />
+  <menuitem id="employee_update" name="Validate Information"/>
+  <menuitem id="employee_update_access" name="Employee Information Update" action="update_employee_information.action_hr_employee_change" parent="update_employee_information.employee_update" sequence="4" groups="update_employee_information.group_administrator_employee" />
 </odoo>

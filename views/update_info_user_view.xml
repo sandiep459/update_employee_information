@@ -23,6 +23,7 @@
       </header>
       <group>
         <field name="name_id" />
+        <field name="changed_name"/>
         <field name="temp_phone" />
         <field name="temp_employee_country_id"/>
         <field name="temp_work_phone"/>
@@ -49,6 +50,6 @@
   </record>
 
   <menuitem id="employee_update_user" name="Update Information"/>
-  <menuitem id="employee_update_access_user" name="Employee Information Update" action="update_employee_information.action_hr_employee_user_change" parent="update_employee_information.employee_update" sequence="2" groups="update_employee_information.group_user_employee"/>
+  <menuitem id="employee_update_access_user" name="Employee Information Update" action="update_employee_information.action_hr_employee_user_change" parent="update_employee_information.employee_update_user" groups="update_employee_information.group_user_employee"   sequence="2" />
 </odoo>
       
