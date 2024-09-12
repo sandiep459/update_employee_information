@@ -29,12 +29,12 @@ class HrEmployeeChange(models.Model):
     ], string='Gender')
     temp_birthday=fields.Date(string="Date of Birth")
     temp_place_of_birth=fields.Char(string="Country Of Birth")
-    # def _compute_is_admin_employee(self):
-    #     # admin_group = self.env.ref('update_employee_information.group_administrator_employee')
-    #     if self.env.user.has_group('update_employee_information.group_administrator_employee'):
-    #         self.is_admin_employee = True
-    #     else:
-    #         self.is_admin_employee = False
+    state = fields.Selection([
+        ('submitted', 'Submitted'),
+        ('validated', 'Validated'),
+        ('rejected', 'Rejected')
+    ], string='Status', required=True, tracking=True, default='submitted')
+
 
     
     def action_send_email(self):
@@ -47,50 +47,40 @@ class HrEmployeeChange(models.Model):
                             'email_from':self.env.user.login})
             template.send_mail(record.id, force_send=True)
 
-     
-    
     def validate_change_in_information(self):
         self.ensure_one()
-        employee_update = self.env['hr.employee'].search([('id', '=', self.name_id.id)],limit=1)
-        if employee_update:
-            self.action_send_email()
-            employee_update.write({
-                
-                'default_phone':self.temp_phone,
-                'default_country_id':self.temp_employee_country_id.id,
-                'default_work_phone':self.temp_work_phone,
-                'default_private_email':self.temp_private_email,
-                'default_marital':self.temp_marital,
-                'default_emergency_contact':self.temp_emergency_contact,
-                'default_emergency_phone':self.temp_emergency_phone,
-                'default_identification_id':self.temp_identification_id,
-                'default_passport_id':self.temp_passport_id,
-                'default_gender':self.temp_gender,
-                'birthday':self.temp_birthday,
-             })
-            # employee_update.write({
-            #     'mobile_phone':self.temp_phone,
-            #     'country_id':self.temp_employee_country_id.id,
-               
-            #     'work_phone':self.temp_work_phone,
-            #     'private_email':self.temp_private_email,
-            #     'marital':self.temp_marital,
-            #     'emergency_contact':self.temp_emergency_contact,
-            #     'emergency_phone':self.temp_emergency_phone,
-            #     'identification_id':self.temp_identification_id,
-            #     'passport_id':self.temp_passport_id,
-            #     'gender':self.temp_gender,
-            #     'birthday':self.temp_birthday,
-            #  })
-            for rec in self:
-               rec.unlink()
-      
-            return    
-            
 
-        else :
-                raise ValidationError(_("No Update Found"))
-        
+        if self.state != 'submitted':
+            raise UserError(_("Only submitted requests can be validated."))
+
+        # Search for the employee linked to the user (name_id) if name_id is a res.users
+        employee_update = self.env['hr.employee'].search([('user_id', '=', self.name_id.id)], limit=1)
+
+        if employee_update:
+            # Send notification email
+            self.action_send_email()
+
+            # Update employee fields with temporary data
+            employee_update.write({
+                'mobile_phone': self.temp_phone,  # Phone number
+                'country_id': self.temp_employee_country_id.id,  # Country
+                'work_phone': self.temp_work_phone,  # Work phone
+                'private_email': self.temp_private_email,  # Private email
+                'marital': self.temp_marital,  # Marital status
+                'emergency_contact': self.temp_emergency_contact,  # Emergency contact
+                'emergency_phone': self.temp_emergency_phone,  # Emergency phone
+                'identification_id': self.temp_identification_id,  # Identification
+                'passport_id': self.temp_passport_id,  # Passport ID
+                'gender': self.temp_gender,  # Gender
+                'birthday': self.temp_birthday,  # Birthday
+            })
+
+            # Change the state to validated
+            self.state = 'validated'
+
+        else:
+            raise ValidationError(_("No employee found for this user."))
+
     def submit_action_send_email(self):
         self.ensure_one()
         template = self.env.ref('update_employee_information.mail_template_for_notifying_admin')
@@ -101,18 +91,28 @@ class HrEmployeeChange(models.Model):
             for user in groups.users:
                 template.write({'email_to':user.login,
                                 'email_from':self.env.user.login})
-                template.send_mail(record.id, force_send=True)   
-   
+                template.send_mail(record.id, force_send=True)
+
     def reject_change_in_information(self):
         self.ensure_one()
+
+        # Find the email template for rejection
         template = self.env.ref('update_employee_information.mail_template_for_notifying_the_rejection')
         if not template:
             raise UserError("Mail template not found!")
-        for rec in self:
-               rec.unlink()
-        for record in self:
-            template.write({'email_to':self.name_id.work_email,
-                            'email_from':self.env.user.login})
-            template.send_mail(record.id, force_send=True)
+
+        # Send rejection email without modifying the template
+        template.send_mail(self.id, email_values={
+            'email_to': self.name_id.work_email,
+            'email_from': self.env.user.login
+        }, force_send=True)
+
+        # Update state to rejected before unlinking the record
+        self.state = 'rejected'
+
+        # Unlink the record after the state is updated
+        self.unlink()
+
+
             
      
