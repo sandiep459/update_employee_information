@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
-    'name': 'Nexus Sign',
+    'name': 'Sign',
     'version': '1.0',
     'category': 'Sales/Sign',
     'sequence': 105,
@@ -41,7 +41,7 @@ Let your customers follow the signature process easily.
     'application': True,
     'post_init_hook': '_sign_post_init',
     'installable': True,
-    # 'license': 'OEEL-1',
+    'license': 'OEEL-1',
     'assets': {
         'mail.assets_messaging': [
             'sign/static/src/models/*.js',
@@ -64,7 +64,7 @@ Let your customers follow the signature process easily.
             'web/static/lib/bootstrap/scss/utilities/_api.scss',
             'web/static/src/legacy/scss/utils.scss',
             'web/static/src/scss/primary_variables.scss',
-            'backend_enterprise_theme/static/src/scss/primary_variables.scss',
+            'web_enterprise/static/src/scss/primary_variables.scss',
             'web_tour/static/src/scss/tip.scss',
             'sign/static/src/css/iframe.css',
             'web/static/src/scss/secondary_variables.scss',
